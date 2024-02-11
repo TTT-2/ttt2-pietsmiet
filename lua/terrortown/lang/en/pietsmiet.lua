@@ -15,3 +15,4 @@ Note: Most of these settings are only active in a new round due to the way entit
 L["ps_randomat"] = "Exekutiventscheider Andi"
 L["ps_c4"] = "Eieruhr C4"
 L["ps_bluebull"] = "Sepjö"
+L["ps_car_gun"] = "Sportswäggon"
