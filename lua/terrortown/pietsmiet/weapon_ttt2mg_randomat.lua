@@ -5,7 +5,9 @@ end
 PIETSMIET.InLoadoutFor = { ROLE_DETECTIVE }
 
 if SERVER then
+    util.PrecacheSound("pietsmiet/exekutiv.wav")
+
     function PIETSMIET:PrimaryAttack()
-        print("this would be a sound")
+        self:GetOwner():EmitSound("pietsmiet/exekutiv.wav")
     end
 end
