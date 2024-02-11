@@ -7,29 +7,27 @@ local function OnInitialization(class, path, name)
     Dev(1, "Added TTT2 pietsmiet file: ", path, name)
 end
 
-local function ShouldInherit(t, base)
-    return t.base ~= t.type
-end
-
 hook.Add("TTT2FinishedLoading", "PSClassBuiler", function()
     pietSmietReplacements = classbuilder.BuildFromFolder(
         "terrortown/pietsmiet/",
         SHARED_FILE,
         "PIETSMIET", -- class scope
         OnInitialization, -- on class loaded
-        true, -- should inherit
-        ShouldInherit -- special inheritance check
+        false -- should inherit
     )
 
     for name, class in pairs(pietSmietReplacements) do
-        local wep = weapons.GetStored(name) or items.GetStored(name)
+        local wep = weapons.GetStored(name) or ents.GetStored(name) or items.GetStored(name)
 
-        if not wep then continue end
+        if not wep then
+            continue
+        end
 
-        if class.name then
-            class.OldName = wep.Name
+        if CLIENT and class.PrintName then
+            class.OldPrintName = wep.EquipMenuData.name
 
-            wep.Name = class.Name
+            wep.EquipMenuData.name = class.PrintName
+            wep.PrintName = class.PrintName
         end
 
         if class.Icon then
@@ -49,18 +47,18 @@ hook.Add("TTT2FinishedLoading", "PSClassBuiler", function()
         if class.PrimaryAttack and wep.PrimaryAttack then
             class.OldPrimaryAttach = wep.PrimaryAttack
 
-            wep.PrimaryAttack = function(slf) -- is this the correct reference here?
-                class.OldPrimaryAttach(slf)
+            wep.PrimaryAttack = function(slf)
                 class.PrimaryAttack(slf)
+                class.OldPrimaryAttach(slf)
             end
         end
 
         if class.SecondaryAttack and wep.SecondaryAttack then
             class.OldSecondaryAttack = wep.SecondaryAttack
 
-            wep.PrimaryAttack = function(slf) -- is this the correct reference here?
-                class.OldSecondaryAttack(slf)
+            wep.PrimaryAttack = function(slf)
                 class.SecondaryAttack(slf)
+                class.OldSecondaryAttack(slf)
             end
         end
     end
