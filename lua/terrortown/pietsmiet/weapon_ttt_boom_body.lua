@@ -2,8 +2,6 @@ if SERVER then
     util.PrecacheSound("pietsmiet/das_ist_fake.mp3")
 
     hook.Add("TTT2BoomBodyOnExplode", "PietSmietBoomBodyFake", function(rag)
-        print("boom body exploded, playing sound")
-
         sound.Play("pietsmiet/das_ist_fake.mp3", rag:GetPos())
     end)
 
