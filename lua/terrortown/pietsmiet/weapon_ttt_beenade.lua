@@ -1,3 +1,8 @@
+if CLIENT then
+    PIETSMIET.PrintName = "ps_beenade"
+    PIETSMIET.Icon = "vgui/ttt/pietsmiet/icon_jay.png"
+end
+
 if SERVER then
     util.PrecacheSound("pietsmiet/spinnen.mp3")
 
